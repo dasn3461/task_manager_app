@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Task List</h1>
+<ul class="list-group">
+    {% for task in tasks %}
+    <li class="list-group-item"><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></li>
+    {% empty %}
+    <li class="list-group-item">No tasks available</li>
+    {% endfor %}
+</ul>
+{% endblock %}

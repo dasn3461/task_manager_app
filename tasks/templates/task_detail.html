@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Detail{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Task Detail: {{ task.title }}</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Description:</h5>
+        <p class="card-text">{{ task.description }}</p>
+        <h5 class="card-title">Due Date:</h5>
+        <p class="card-text">{{ task.due_date }}</p>
+        <h5 class="card-title">Priority:</h5>
+        <p class="card-text">{{ task.priority }}</p>
+        <h5 class="card-title">Completed:</h5>
+        <p class="card-text">{% if task.completed %}Yes{% else %}No{% endif %}</p>
+    </div>
+</div>
+
+{% if task.photos.all %}
+<div class="mt-4">
+    <h5>Photos:</h5>
+    <div class="row">
+        {% for photo in task.photos.all %}
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="{{ photo.image.url }}" class="card-img-top" alt="Photo">
+                <div class="card-body">
+                    <p class="card-text">Photo for: {{ task.title }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<a href="{% url 'task_update' task.pk %}" class="btn btn-primary mt-3">Edit</a>
+<a href="{% url 'task_delete' task.pk %}" class="btn btn-danger mt-3">Delete</a>
+{% endblock %}
